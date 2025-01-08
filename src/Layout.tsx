@@ -13,7 +13,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
         sx={{
           flexGrow: 1,
           margin: 0,
-          p: 3,
+          p: 0,
           backgroundColor: theme.palette.background.default, // Use theme's default background
           color: theme.palette.text.primary, // Use theme's text color
         }}

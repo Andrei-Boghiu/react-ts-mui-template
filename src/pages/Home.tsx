@@ -68,12 +68,10 @@ export default function Home() {
     <Box>
       {/* Hero Section */}
       <Paper
+        variant="elevation"
         sx={{
-          position: "relative",
-          bgcolor: "grey.800",
-          color: "white",
-          mb: 4,
-          py: 8,
+          mb: 2,
+          py: 6,
         }}
       >
         <Container maxWidth="lg">
@@ -81,7 +79,7 @@ export default function Home() {
             sx={{
               display: "flex",
               flexDirection: { xs: "column", md: "row" },
-              gap: 4,
+              gap: 1,
             }}
           >
             <Box sx={{ flex: "1" }}>
@@ -93,7 +91,7 @@ export default function Home() {
               >
                 Welcome to Our Platform
               </Typography>
-              <Typography variant="h5" paragraph>
+              <Typography variant="subtitle1" component="p" gutterBottom>
                 Streamline your workflow, boost productivity, and achieve your
                 goals with our comprehensive suite of tools.
               </Typography>

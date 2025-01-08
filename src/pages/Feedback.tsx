@@ -10,42 +10,25 @@ import {
   Snackbar,
 } from "@mui/material";
 import { useState, FormEvent } from "react";
-
-interface FeedbackFormData {
-  name: string;
-  email: string;
-  feedback: string;
-  rating: number | null;
-}
+import Avatar from "../components/Avatar";
+import { useAuth } from "../context/useAuth";
 
 export default function Feedback() {
-  // name and email should be fetched from the auth provider
-  const [formData, setFormData] = useState<FeedbackFormData>({
-    name: "",
-    email: "",
-    feedback: "",
-    rating: 0,
-  });
+  const { user } = useAuth();
+
+  const [rating, setRating] = useState<number>(0);
+  const [text, setText] = useState<string>("");
+
   const [openSnackbar, setOpenSnackbar] = useState(false);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleRatingChange = (newValue: number | null) => {
-    setFormData((prev) => ({
-      ...prev,
-      rating: newValue,
-    }));
-  };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("Form data:", formData);
+    console.log("Form data:", {
+      name: user?.name,
+      email: user?.email,
+      rating,
+      text,
+    });
     setOpenSnackbar(true);
   };
 
@@ -60,18 +43,29 @@ export default function Feedback() {
         us.
       </Typography>
 
-      <Box component="form" onSubmit={handleSubmit} noValidate>
+      <Box component="form" onSubmit={handleSubmit}>
         <Stack spacing={4}>
-          <Box>
-            <Typography variant="h6" gutterBottom>
-              Rate Your Experience
-            </Typography>
-            <Rating
-              name="rating"
-              value={formData.rating}
-              onChange={(_, newValue) => handleRatingChange(newValue)}
-              size="large"
-            />
+          <Box
+            sx={{
+              width: "100%",
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            }}
+          >
+            <Box>
+              <Typography variant="h6" gutterBottom>
+                Rate Your Experience
+              </Typography>
+              <Rating
+                name="rating"
+                value={rating}
+                onChange={(_, newValue) => setRating(newValue ?? 0)}
+                size="large"
+              />
+            </Box>
+            <Avatar />
           </Box>
 
           <Box>
@@ -87,8 +81,8 @@ export default function Feedback() {
               multiline
               rows={8}
               variant="outlined"
-              value={formData.feedback}
-              onChange={handleChange}
+              value={text}
+              onChange={(newValue) => setText(newValue.target.value ?? 0)}
             />
           </Box>
 
@@ -98,6 +92,7 @@ export default function Feedback() {
               variant="contained"
               size="large"
               sx={{ minWidth: 200 }}
+              disabled={rating === 0 || !text}
             >
               Submit Feedback
             </Button>

@@ -1,39 +1,21 @@
-import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
-import Typography from "@mui/material/Typography";
-import Box from "@mui/material/Box";
-import { useAuth } from "../context/useAuth";
+import Avatar from "./Avatar";
+import { useNavigate } from "react-router";
 
 export default function SidebarFooter() {
-  const { user } = useAuth();
+  const navigate = useNavigate();
   return (
     <Stack
       direction="row"
       sx={{
-        p: 2,
-        gap: 1,
         alignItems: "center",
         borderTop: "1px solid",
         borderColor: "divider",
+        cursor: "pointer",
       }}
+      onClick={() => navigate("/profile")}
     >
-      <Avatar
-        sizes="small"
-        alt={user?.name ?? "Riley Error James"}
-        // src="/path/to/img.jpg"
-        sx={{ width: 36, height: 36 }}
-      />
-      <Box sx={{ mr: "auto" }}>
-        <Typography
-          variant="body2"
-          sx={{ fontWeight: 500, lineHeight: "16px" }}
-        >
-          {user?.name ?? "Riley Error James"}
-        </Typography>
-        <Typography variant="caption" sx={{ color: "text.secondary" }}>
-          {user?.email ?? "riley@undefined.err"}
-        </Typography>
-      </Box>
+      <Avatar />
     </Stack>
   );
 }

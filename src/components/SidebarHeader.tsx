@@ -17,9 +17,6 @@ export default function SidebarHeader() {
       <Typography variant="h6" sx={{ fontWeight: 600 }}>
         Website Name
       </Typography>
-      <Typography variant="caption" sx={{ color: "text.secondary" }}>
-        Short website cta slogan!
-      </Typography>
     </Box>
   );
 }
